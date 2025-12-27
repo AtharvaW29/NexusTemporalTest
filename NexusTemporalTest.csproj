@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -34,6 +34,10 @@
   <ItemGroup>
     <Compile Remove="NexusTemporal.Tests\**\*.cs" />
     <Compile Remove="NexusTemporal.AppHost\**\*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="NexusTemporal.Tests\NexusTemporal.Tests.csproj" />
+    <ProjectReference Include="NexusTemporal.TestRunner\NexusTemporal.TestRunner.csproj" />
   </ItemGroup>
 
 </Project>
