@@ -26,4 +26,14 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NexusTemporalTest\obj\Debug\net8.0\" />
+  </ItemGroup>
+
+  <!-- Exclude test source files from being compiled into this root project to avoid duplicate-assembly-info and missing-package errors -->
+  <ItemGroup>
+    <Compile Remove="NexusTemporal.Tests\**\*.cs" />
+    <Compile Remove="NexusTemporal.AppHost\**\*.cs" />
+  </ItemGroup>
+
 </Project>

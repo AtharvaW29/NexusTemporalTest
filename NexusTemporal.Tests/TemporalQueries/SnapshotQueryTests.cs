@@ -24,7 +24,7 @@ public class SnapshotQueryTests
         var result = await _client.SubmitAsync<dynamic>(@"
             g.E()
             .has('valid_from', lte('2025-01-15'))
-            .has('valid_to', gt('2025-02-15'))
+            .has('valid_to', gt('2025-01-15'))
         ");
 
         Assert.That(result.Count(), Is.GreaterThan(1));

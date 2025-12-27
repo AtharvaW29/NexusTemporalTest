@@ -25,13 +25,13 @@ public static class TestGraphSeeder
         for (int i = 0; i < 5000; i++)
         {
             await client.SubmitAsync<dynamic>($@"
-                 g.V().has('User', 'userid', 'U{i % 50}')
+                 g.V().has('User', 'userId', 'U{i % 50}')
                 .as('u')
                 .V().has('IP', 'ipId', 'IP_{i % 20}')
                 .addE('USES_IP')
                 .from('u')
                 .property('valid_from', '2025-01-01')
-                .property('valid_to', '2025-12-31')"
+                .property('valid_to', '2025-03-01')"
                 );
         }
     }

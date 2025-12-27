@@ -1,5 +1,5 @@
 ﻿using Gremlin.Net.Driver;
-using Gremlin.Net.Structure.IO.GraphSON;
+using Gremlin.Net.Structure.IO.GraphBinary;
 
 public static class GremlinClientFactory
 {
@@ -11,7 +11,7 @@ public static class GremlinClientFactory
             enableSsl: false
         );
 
-        var serializer = new GraphSON2MessageSerializer();
+        var serializer = new GraphBinaryMessageSerializer();
 
         return new GremlinClient(
             server,
