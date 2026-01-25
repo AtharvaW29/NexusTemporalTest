@@ -4,7 +4,11 @@ using NexusTemporal.Api;
 using NexusTemporal.Tests.Infrastructure;
 using System.Diagnostics;
 
-var builder = WebApplication.CreateBuilder(args);
+// Use application base directory as content root so wwwroot is found when run by Aspire from output dir
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    ContentRootPath = AppContext.BaseDirectory
+});
 
 // Add services to the container
 builder.Services.AddEndpointsApiExplorer();
@@ -49,8 +53,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors();
 
-// Serve dashboard (index.html) at root
-app.MapGet("/", () => Results.File("wwwroot/index.html", "text/html"));
+// Serve dashboard (index.html) at root — path is relative to web root (wwwroot)
+app.MapGet("/", () => Results.File("index.html", "text/html"));
 
 // Define benchmark queries
 var benchmarkQueries = new Dictionary<string, string>

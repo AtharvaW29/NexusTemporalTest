@@ -19,5 +19,10 @@
     <ProjectReference Include="..\NexusTemporal.Tests\NexusTemporal.Tests.csproj" />
   </ItemGroup>
 
+  <!-- Ensure wwwroot is copied to output so the dashboard is found when run by Aspire from bin dir -->
+  <ItemGroup>
+    <Content Update="wwwroot\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
 
