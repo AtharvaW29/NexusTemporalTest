@@ -14,15 +14,19 @@ processors:
 exporters:
   debug:
     verbosity: detailed
+  otlp/dashboard:
+    endpoint: ${DOTNET_DASHBOARD_OTLP_ENDPOINT_URL}
+    tls:
+      insecure: true
 
 service:
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug]
+      exporters: [debug, otlp/dashboard]
 
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug]
+      exporters: [debug, otlp/dashboard]

@@ -50,14 +50,29 @@ public static class TelemetrySetup
         // Metrics
         var meterProviderBuilder = Sdk.CreateMeterProviderBuilder()
             .SetResourceBuilder(resource)
-            .AddMeter(TemporalMetrics.Meter.Name)
-            .AddOtlpExporter(options =>
+            .AddMeter(TemporalMetrics.Meter.Name);
+        
+        // Check if running in Aspire - send directly to dashboard if available
+        var dashboardEndpoint = Environment.GetEnvironmentVariable("DOTNET_DASHBOARD_OTLP_ENDPOINT_URL");
+        if (!string.IsNullOrEmpty(dashboardEndpoint))
+        {
+            // Send to Aspire dashboard directly
+            meterProviderBuilder.AddOtlpExporter(options =>
             {
-                options.Endpoint = new Uri(defaultEndpoint);
-                options.Protocol = protocol;
-            })
-            // Add console exporter for metrics
-            .AddConsoleExporter();
+                options.Endpoint = new Uri(dashboardEndpoint);
+                options.Protocol = OtlpExportProtocol.HttpProtobuf;
+            });
+        }
+        
+        // Also send to OTEL collector (or use as fallback)
+        meterProviderBuilder.AddOtlpExporter(options =>
+        {
+            options.Endpoint = new Uri(defaultEndpoint);
+            options.Protocol = protocol;
+        });
+        
+        // Add console exporter for metrics
+        meterProviderBuilder.AddConsoleExporter();
 
         var meterProvider = meterProviderBuilder.Build();
 

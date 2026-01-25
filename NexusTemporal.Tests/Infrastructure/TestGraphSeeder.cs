@@ -7,7 +7,7 @@ public static class TestGraphSeeder
         // New Graph
         await client.SubmitAsync<dynamic>("g.V().drop()");
 
-        // Creating 50 Sample Users
+        // 50 Sample Users
         for (int i = 0; i < 50; i++)
         {
             await client.SubmitAsync<dynamic>(
@@ -15,7 +15,7 @@ public static class TestGraphSeeder
         }
 
         // Create IPs
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 50; i++)
         {
             await client.SubmitAsync<dynamic>(
                 $"g.addV('IP').property('ipId', 'IP_{i}')");
